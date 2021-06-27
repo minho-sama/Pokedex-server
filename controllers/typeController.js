@@ -24,19 +24,20 @@ const type_create = [
     }
 ]
 
-
-//megpróbálni async modullal is! vagy először csak az egyik adatot! 
-//nemtom h a modelllel van a baj, vagy a Promise.all-lal!
 const type_delete = async (req, res, next) => {
     try{
-        const data = Promise.all([
+        Promise.all([
             await Type.findById(req.params.id),
-            await Pokemon.find({type: req.params.id})
-        ])
-        console.log(req.params.id)
-        console.log(data[0])
-        console.log(data[1])
-        return res.json(data)
+            await Pokemon.find({type: req.params.id}).populate('type')
+        ]).then(response => {
+            //just for naming
+            data = {
+                type: response[0],
+                pokemons: response[1]
+            }
+            if(data.pokemons.length > 0) return res.json(data) //type has pokemons, rerender on front end
+            Type.findByIdAndDelete(req.params.id, () =>res.json(data))
+        })
     } catch(err) {
         res.json({message: err})
     }
