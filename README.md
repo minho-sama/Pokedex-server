@@ -1,0 +1,1 @@
+Pokedex REST API to serve a react front-end. CRUD operations implemented, data is saved to mondogb.
