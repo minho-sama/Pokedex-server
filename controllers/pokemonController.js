@@ -6,7 +6,7 @@ const index = async (req, res, next) => {
         const pokemon_list = await Pokemon.find().populate('type')
         return res.json(pokemon_list)
     }catch(err){
-        return res.json({message: err})
+        return res.json({message: err.message})
     }
 }
 
@@ -15,7 +15,7 @@ const pokemon_get = async (req, res) => {
         const pokemon = await Pokemon.findById(req.params.id).populate('type')
         return res.json(pokemon)
     }catch(err){
-        return res.json({message:err})
+        return res.json({message:err.message})
     }
 }
 
@@ -43,7 +43,7 @@ const pokemon_create = [
                 //res.redirect? kell egyáltalán redirect?
                 return res.json(savedPokemon)
             } catch(err){
-                return res.json({message:err})
+                return res.json({message:err.message})
             }
         }
     }
@@ -67,7 +67,7 @@ const pokemon_update = [
             img_url: req.body.img_url
         })
         if(!errors.isEmpty()){
-            res.json(errors.array())
+            return res.json(errors.array())
         } else{
             try{
                 const updatedPokemon = await Pokemon.updateOne({_id:req.params.id}, {$set: {
@@ -80,7 +80,7 @@ const pokemon_update = [
                 }})
                 return res.json(updatedPokemon)
             } catch(err){
-                return res.json({message: err})
+                return res.json({message: err.message})
             }
         }
     }
@@ -91,7 +91,7 @@ const pokemon_delete = async (req, res) => {
         const deletedPokemon = await Pokemon.findByIdAndDelete(req.params.id)
         return res.json(deletedPokemon)
     }catch(err){
-        return res.json({message:err})
+        return res.json({message:err.message})
     }
 }
 

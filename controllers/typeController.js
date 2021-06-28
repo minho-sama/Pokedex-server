@@ -16,11 +16,9 @@ const type_create = [
             try{
                 const savedType = await type.save()
                 //res.redirect(savedType.url) lehet a redirectet majd FRONTENDEN kell intézni react routerrel! backend CSAKIS adatot küld!!!
-                //az a baj, h különböző react oldalakra különböző tartalom kell
-                //kell egyáltalán nekem redirect?? react egy SPA végülis
                 res.json(savedType)
             } catch(err){
-                res.json({message:err})
+                res.json({message:err.message})
             }
 
         }
@@ -40,7 +38,7 @@ const type_update = [
             //res.redirect(updatedType.url)
             return res.json(updatedType)
             } catch(err){
-                res.json({message:err})
+                res.json({message:err.message})
             }
         }
     }
@@ -60,11 +58,11 @@ const type_delete = async (req, res, next) => {
             if(data.pokemons.length > 0) return res.json(data) //type has pokemons, rerender on front end
             Type.findByIdAndDelete(req.params.id, () => {
                 // res.redirect('/pokedex/types')
-                res.json(data)
+                return res.json(data)
             })
         })
     } catch(err) {
-        res.json({message: err})
+        return res.json({message: err.message})
     }
 }
 
@@ -78,19 +76,19 @@ const type_get = async (req, res, next) => {
                 type: result[0],
                 pokemons: result[1]
             }
-            res.json(data)
+            return res.json(data)
         })
     }catch(err){
-        res.json({message:err})
+        res.json({message:err.message})
     }
 }
 
 const type_list = async (req, res, next) => {
     try{
         const list = await Type.find()
-        res.json(list)
+        return res.json(list)
     }catch(err){
-        res.json({message: err})
+        return res.json({message: err.message})
     }
 }
 

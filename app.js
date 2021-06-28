@@ -27,7 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.send('welcome to my pokedex api')
+  res.send('welcome to my pokedex api pls work')
 })
 app.use('/pokedex', pokedexRouter)
 
