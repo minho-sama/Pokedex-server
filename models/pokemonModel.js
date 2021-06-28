@@ -4,11 +4,11 @@ const Schema = mongoose.Schema
 const PokemonSchema = new Schema(
     {
         name: {type: String, required: true},
-        // description: {type: String, required: true},
-        // height: {type:Number, required: true},
-        // weight: {type:Number, required: true},
+        description: {type: String},
+        height: {type:Number},
+        weight: {type:Number},
         type: [{type: Schema.Types.ObjectId, ref: 'Type'}],
-        // img_url: {type:String, required:true}
+        img_url: {type:String}
     }
 ) 
 
