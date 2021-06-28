@@ -5,13 +5,12 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 require('dotenv/config')
 const cors = require('cors')
-const indexRouter = require('./routes/index');
 const pokedexRouter = require('./routes/pokedex');
 
 const app = express();
 //Set up mongoose connection
 const mongoose = require('mongoose');
-const mongoDB = process.env.DB_KEY;
+const mongoDB = process.env.MONGODB_URI || process.env.DB_KEY;
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -27,7 +26,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
 app.use('/pokedex', pokedexRouter)
 
 // catch 404 and forward to error handler
