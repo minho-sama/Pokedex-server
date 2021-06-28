@@ -10,7 +10,9 @@ const pokedexRouter = require('./routes/pokedex');
 const app = express();
 //Set up mongoose connection
 const mongoose = require('mongoose');
-const mongoDB = process.env.MONGODB_URI || process.env.DB_KEY;
+const dbkeytest = "mongodb+srv://minh:735196Lili@inventory.5urxc.mongodb.net/inventory?retryWrites=true&w=majority"
+const mongoDB = process.env.MONGODB_URI || dbkeytest;
+// process.env.DB_KEY
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
