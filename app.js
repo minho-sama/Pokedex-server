@@ -1,17 +1,17 @@
+require('dotenv').config()
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-require('dotenv/config')
 const cors = require('cors')
 const pokedexRouter = require('./routes/pokedex');
-
+const dbkey = require('./dbkey/dbkey')
 const app = express();
 //Set up mongoose connection
 const mongoose = require('mongoose');
 const dbkeytest = "mongodb+srv://minh:735196Lili@inventory.5urxc.mongodb.net/inventory?retryWrites=true&w=majority"
-const mongoDB = process.env.MONGODB_URI || dbkeytest;
+const mongoDB = process.env.MONGODB_URI || dbkey;
 // process.env.DB_KEY
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 const db = mongoose.connection;
