@@ -70,7 +70,7 @@ const type_get = async (req, res, next) => {
     try{
         Promise.all([
             await Type.findById(req.params.id),
-            await Pokemon.find({type: req.params.id})
+            await Pokemon.find({type: req.params.id}).populate('type')
         ]).then(result => {
             const data = {
                 type: result[0],
